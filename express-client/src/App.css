@@ -41,9 +41,9 @@ button {
   font-size: calc(10px + 2vmin);
 }
 
-.container {
+container {
   background-color: lightblue;
-  background-image: url("/media/images/background.jpg");
+  background-image: url("/src/images/background.jpg");
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;

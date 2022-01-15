@@ -103,12 +103,11 @@ export default function LoginPage() {
           <b> Giriş bilgilerinizi kontrol edip tekrar deneyiniz</b>
         </Alert>
       </Snackbar>
-      <Container
-        maxWidth="lg"
+      <div
         style={{
-          backgroundImage: `url(${"/src/images/main.jpg"})`,
-          minHeight: "100%",
-          minWidth: "100%",
+          backgroundImage: `url(${"/src/images/background.jpg"})`,
+          minHeight: "100vh",
+          minWidth: "100vh",
         }}
       >
         <Grid
@@ -253,7 +252,7 @@ export default function LoginPage() {
             </Box>
           </Grid>
         </Grid>
-      </Container>
+      </div>
     </React.Fragment>
   );
 }
