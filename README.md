@@ -16,10 +16,10 @@
 
 # # Project content
 
--User registered.
--The user is logged in. Then Jwt and session definitions were made.
--The browser information used by the user was stored in jwt and session, then these were compared when he sent a request to the system.
--Pulling the user list was done only if it was authorized.
+- User registered.
+- The user is logged in. Then Jwt and session definitions were made.
+- The browser information used by the user was stored in jwt and session, then these were compared when he sent a request to the system.
+- Pulling the user list was done only if it was authorized.
 
 ## ScreenShots
 ![image](https://user-images.githubusercontent.com/46989233/149603184-b9657b52-61c2-418e-b68d-e12597f99cf6.png)
