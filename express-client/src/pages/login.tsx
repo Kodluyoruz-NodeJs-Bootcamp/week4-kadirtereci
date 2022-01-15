@@ -22,6 +22,7 @@ import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useNavigate } from "react-router-dom";
 import { email } from "envalid";
 import ClientApi from "../api/ClientApi";
+import postData from "../api/ClientApi";
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -30,6 +31,7 @@ function Alert(props: AlertProps) {
 export default function LoginPage() {
   const history = useNavigate();
   const [showResponseError, setShowResponseError] = useState(false);
+  const [showResponseErrorMessage, setShowResponseErrorMessage] = useState("");
 
   const loginFormSchema = yup.object({
     email: yup.string().required("Email alanı boş olamaz"),
@@ -40,24 +42,7 @@ export default function LoginPage() {
       otherwise: yup.string(),
     }),
   });
-  async function postData(url = "", data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "include",
-      // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
-    });
-    return response; // parses JSON response into native JavaScript objects
-  }
+  
 
   const onSubmit = async (data) => {
     try {
@@ -72,8 +57,13 @@ export default function LoginPage() {
 
             data
           );
-      if (response.status === 200) history("/users");
-      else setShowResponseError(true);
+      if (response.status === 200) {
+        history("/users");
+      } else {
+        const errorMessage = await response.json();
+        setShowResponseError(true);
+        setShowResponseErrorMessage(errorMessage.message);
+      }
     } catch (error: any) {
       setShowResponseError(true);
     }
@@ -100,7 +90,11 @@ export default function LoginPage() {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error">
-          <b> Giriş bilgilerinizi kontrol edip tekrar deneyiniz</b>
+          <b>
+            {" "}
+            {showResponseErrorMessage ||
+              "Giriş bilgilerinizi kontrol edip tekrar deneyiniz"}
+          </b>
         </Alert>
       </Snackbar>
       <div
