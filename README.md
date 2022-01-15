@@ -1,7 +1,7 @@
 # # To serve the project locally
 
-- yarn dev command in express-client file
-- yarn start:dev command in the auth-app file
+- yarn & yarn dev command in express-client file
+- yarn & yarn start:dev command in the auth-app file
 - don't forget to use example env files as .env
 
 # # Technologies
