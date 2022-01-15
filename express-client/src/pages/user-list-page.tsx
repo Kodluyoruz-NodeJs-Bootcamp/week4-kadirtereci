@@ -33,7 +33,7 @@ export default function UserListPage() {
         <CardContent>
           {" "}
           <Typography variant={"h4"} color="primary">
-            Kullanıcı Listesi
+            User List
             <hr />
           </Typography>
           <div style={{ height: 400, width: "100%" }}>

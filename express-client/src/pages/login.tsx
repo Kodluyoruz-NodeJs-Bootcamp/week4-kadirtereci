@@ -93,7 +93,7 @@ export default function LoginPage() {
           <b>
             {" "}
             {showResponseErrorMessage ||
-              "Giriş bilgilerinizi kontrol edip tekrar deneyiniz"}
+              "Check Credientials"}
           </b>
         </Alert>
       </Snackbar>
@@ -192,7 +192,7 @@ export default function LoginPage() {
                                   helperText={errors.password}
                                   onChange={handleChange}
                                   placeholder="Parola"
-                                  label="Şifre"
+                                  label="Password"
                                   margin="dense"
                                   InputProps={{
                                     startAdornment: (
@@ -214,7 +214,7 @@ export default function LoginPage() {
                                 fullWidth
                                 startIcon={<VpnKeyIcon />}
                               >
-                                {values.isRegister ? "Kayıt ol" : "Giriş Yap"}
+                                {values.isRegister ? "Register" : "Login"}
                               </Button>
                             </Grid>
                             <Grid item xs={12}>
@@ -230,9 +230,9 @@ export default function LoginPage() {
                                 }}
                               >
                                 {values.isRegister ? (
-                                  <b>Zaten hesabın var mı? Giriş yap! </b>
+                                  <b>Click here to Login</b>
                                 ) : (
-                                  <b> Hesabın yok mu? Hemen kayıt ol! </b>
+                                  <b> Register Now! </b>
                                 )}
                               </Button>
                             </Grid>
