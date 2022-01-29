@@ -12,7 +12,8 @@
 - JavaScript
 - NodeJS
 - Express.js
-- MongoDB Cloud
+- POSTGRESQL
+- TYPEORM
 
 # # Project content
 
