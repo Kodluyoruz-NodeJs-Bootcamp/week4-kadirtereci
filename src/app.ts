@@ -1,14 +1,19 @@
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as express from "express";
-import * as mongoose from "mongoose";
+import { getConnection } from "typeorm";
+import { TypeormStore } from "typeorm-store";
+import { createConnection } from "typeorm";
 import * as cors from "cors";
 import * as session from "express-session";
 import Controller from "./interfaces/controller.interface";
 import errorMiddleware from "./middleware/error.middleware";
+import { Session } from "entities/session.entity";
 
 class App {
   public app: express.Application;
+
+  private readonly sessionRepository: any;
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -18,6 +23,7 @@ class App {
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
     this.initializeErrorHandling();
+    this.sessionRepository = getConnection().getRepository(Session);
   }
 
   public listen() {
@@ -27,25 +33,15 @@ class App {
   }
 
   private initializeMiddlewares() {
-    const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
-    const MongoDbSession = require("connect-mongodb-session")(session);
-    const store = new MongoDbSession({
-      uri: `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`,
-      collection: "sessions",
-    });
-    mongoose.connect(
-      `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    );
-
     this.app.set("trust proxy", 1);
+
+    //* Using session with TypeORM
     this.app.use(
       session({
-        secret: process.env.SESSION_SECRET,
-        resave: true,
-        saveUninitialized: true,
-        cookie: { secure: true, maxAge: 200000 },
-        store: store,
+        secret: "secret",
+        resave: false,
+        saveUninitialized: false,
+        store: new TypeormStore({ repository: this.sessionRepository }),
       })
     );
   }
